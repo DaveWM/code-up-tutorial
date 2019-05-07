@@ -15,6 +15,15 @@ class App extends React.Component {
   }
 
   render(){
+    const toggleTodoCompleted = (id) => {
+      const updatedTodos = this.state.todos.map(t => 
+        t.id === id ? {...t, completed: !t.completed} : t
+      );
+      this.setState({
+        todos: updatedTodos
+      });
+    }
+
     return (
       <div>
         <header>
@@ -25,7 +34,7 @@ class App extends React.Component {
           <ul>
           {this.state.todos.map(t => {
             const todoDisplay = t.completed ? <s>{t.name}</s> : t.name;
-            return <li>{todoDisplay}</li>
+            return <li>{todoDisplay} <input type="checkbox" checked={t.completed} onChange={(_) => toggleTodoCompleted(t.id)}/></li>
           })}
           </ul>
         </content>
