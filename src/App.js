@@ -2,7 +2,11 @@ import React from 'react';
 import './App.css';
 import * as R from 'ramda';
 
-class App extends React.Component {
+export function toggleTodoCompleted(state, id) {
+  return R.over(R.lensPath(["todos", id, "completed"]), R.not, state);
+}
+
+export class App extends React.Component {
   
   constructor(){
     super();
@@ -18,8 +22,8 @@ class App extends React.Component {
   }
 
   render(){
-    const toggleTodoCompleted = (id) => {
-      const newState = R.over(R.lensPath(["todos", id, "completed"]), R.not, this.state);
+    const updateStateToggleTodoCompleted = (id) => {
+      const newState = toggleTodoCompleted(this.state, id);
       this.setState(newState);
     }
 
@@ -33,7 +37,7 @@ class App extends React.Component {
           <ul>
           {R.values(this.state.todos).map(t => {
             const todoDisplay = t.completed ? <s>{t.name}</s> : t.name;
-            return <li>{todoDisplay} <input type="checkbox" checked={t.completed} onChange={(_) => toggleTodoCompleted(t.id)}/></li>
+            return <li>{todoDisplay} <input type="checkbox" checked={t.completed} onChange={(_) => updateStateToggleTodoCompleted(t.id)}/></li>
           })}
           </ul>
         </content>
