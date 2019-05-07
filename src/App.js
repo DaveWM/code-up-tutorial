@@ -15,6 +15,17 @@ export function changeTodoName(state, id, newName) {
   return R.assocPath(["todos", id, "name"], newName, state);
 }
 
+export function handleEvent(state, event) {
+  switch(event.type){
+    case "toggle":
+      return toggleTodoCompleted(state, event.id);
+    case "add":
+      return addTodo(state);
+    case "changeName":
+      return changeTodoName(state, event.id, event.newName);
+  }
+}
+
 export class App extends React.Component {
   
   constructor(){
@@ -31,18 +42,9 @@ export class App extends React.Component {
   }
 
   render(){
-    const updateStateToggleTodoCompleted = (id) => {
-      const newState = toggleTodoCompleted(this.state, id);
-      this.setState(newState);
-    }
-
-    const updateStateAddTodo = () => {
-      const newState = addTodo(this.state);
-      this.setState(newState);
-    };
-
-    const updateStateChangeTodoName = (id, newName) => {
-      const newState = changeTodoName(this.state, id, newName);
+    const updateState = (event) => {
+      console.log("Updating: ", event);
+      const newState = handleEvent(this.state, event);
       this.setState(newState);
     }
 
@@ -55,11 +57,11 @@ export class App extends React.Component {
           <p>Welcome to my awesome todo app 🙌</p>
           <ul>
           {R.values(this.state.todos).map(t => {
-            const todoDisplay = t.completed ? <s>{t.name}</s> : <input onChange={(ev) => updateStateChangeTodoName(t.id, ev.target.value)} value={t.name}></input>; 
-            return <li>{todoDisplay} <input type="checkbox" checked={t.completed} onChange={(_) => updateStateToggleTodoCompleted(t.id)}/></li>
+            const todoDisplay = t.completed ? <s>{t.name}</s> : <input onChange={(ev) => updateState({type: "changeName", id: t.id, newName: ev.target.value})} value={t.name}></input>; 
+            return <li>{todoDisplay} <input type="checkbox" checked={t.completed} onChange={(_) => updateState({type: "toggle", id: t.id})}/></li>
           })}
           </ul>
-          <button onClick={(_) => updateStateAddTodo()}>Add a Todo</button>
+          <button onClick={(_) => updateState({type: "add"})}>Add a Todo</button>
         </content>
       </div>
     );
