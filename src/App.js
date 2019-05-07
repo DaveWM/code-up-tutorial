@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import * as R from 'ramda';
+import { TodoList } from './TodoList';
 
 export function toggleTodoCompleted(state, id) {
   return R.over(R.lensPath(["todos", id, "completed"]), R.not, state);
@@ -48,23 +49,7 @@ export class App extends React.Component {
       this.setState(newState);
     }
 
-    return (
-      <div>
-        <header>
-          <h1>My Awesome Todo App</h1>
-        </header>
-        <content>
-          <p>Welcome to my awesome todo app 🙌</p>
-          <ul>
-          {R.values(this.state.todos).map(t => {
-            const todoDisplay = t.completed ? <s>{t.name}</s> : <input onChange={(ev) => updateState({type: "changeName", id: t.id, newName: ev.target.value})} value={t.name}></input>; 
-            return <li>{todoDisplay} <input type="checkbox" checked={t.completed} onChange={(_) => updateState({type: "toggle", id: t.id})}/></li>
-          })}
-          </ul>
-          <button onClick={(_) => updateState({type: "add"})}>Add a Todo</button>
-        </content>
-      </div>
-    );
+    return <TodoList todos={this.state.todos} updateState={updateState}></TodoList>
   }
 }
 
