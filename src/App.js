@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import * as R from 'ramda';
 import { TodoList } from './TodoList';
+import { Provider, connect } from 'react-redux'
+import { createStore } from 'redux'
 
 export function toggleTodoCompleted(state, id) {
   return R.over(R.lensPath(["todos", id, "completed"]), R.not, state);
@@ -16,7 +18,17 @@ export function changeTodoName(state, id, newName) {
   return R.assocPath(["todos", id, "name"], newName, state);
 }
 
-export function handleEvent(state, event) {
+const initialState = {
+  todos: {
+    1: {
+      id: 1,
+      name: "A dummy todo",
+      completed: false
+    }
+  }
+};
+
+export function handleEvent(state = initialState, event) {
   switch(event.type){
     case "toggle":
       return toggleTodoCompleted(state, event.id);
@@ -25,32 +37,25 @@ export function handleEvent(state, event) {
     case "changeName":
       return changeTodoName(state, event.id, event.newName);
   }
+  return state;
 }
 
-export class App extends React.Component {
-  
-  constructor(){
-    super();
-    this.state = {
-      todos: {
-        1: {
-          id: 1,
-          name: "A dummy todo",
-          completed: false
-        }
-      }
-    }
-  }
+const store = createStore(
+  handleEvent
+);
 
-  render(){
-    const updateState = (event) => {
-      console.log("Updating: ", event);
-      const newState = handleEvent(this.state, event);
-      this.setState(newState);
-    }
+const ConnectedTodoList = connect(
+  state => ({
+      todos: state.todos
+    })
+)(TodoList);
 
-    return <TodoList todos={this.state.todos} updateState={updateState}></TodoList>
-  }
+function App(){
+  return (
+    <Provider store={store}>
+      <ConnectedTodoList></ConnectedTodoList>
+    </Provider>
+  )
 }
 
 export default App;

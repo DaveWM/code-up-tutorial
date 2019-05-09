@@ -2,11 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {App, toggleTodoCompleted, addTodo, changeTodoName} from './App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
 
 describe('toggling a todo state', () => {
   it('should set the state to true when it is false', () => {

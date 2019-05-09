@@ -32,7 +32,7 @@ describe('TodoList component', () => {
         };
         const updateStateSpy = sinon.spy();
 
-        const rendered = shallow(<TodoList todos={todos} updateState={updateStateSpy}/>);
+        const rendered = shallow(<TodoList todos={todos} dispatch={updateStateSpy}/>);
 
         rendered.find('li input[type="checkbox"]').simulate('change');
 
