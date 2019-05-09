@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {TodoList} from './TodoList';
 import {shallow} from 'enzyme';
 import sinon from 'sinon';
+import { ListItem, TextField, ListItemText, Checkbox } from '@material-ui/core';
 
 describe('TodoList component', () => {
     it('should render each todo', () => {
@@ -16,10 +17,12 @@ describe('TodoList component', () => {
                 completed: true
             }
         };
+        
         const rendered = shallow(<TodoList todos={todos}/>);
-        expect(rendered.find('li').length).toEqual(2);
-        expect(rendered.find('li input').at(0).prop('value')).toEqual('First todo');
-        expect(rendered.find('li').at(1).text()).toContain('Second todo');
+
+        expect(rendered.find(ListItem).length).toEqual(2);
+        expect(rendered.find(TextField).at(0).prop('value')).toEqual('First todo');
+        expect(rendered.find('s').at(0).text()).toContain('Second todo');
     });
 
     it('should fire the "toggle" event when a todo is toggled', () => {
@@ -34,7 +37,7 @@ describe('TodoList component', () => {
 
         const rendered = shallow(<TodoList todos={todos} dispatch={updateStateSpy}/>);
 
-        rendered.find('li input[type="checkbox"]').simulate('change');
+        rendered.find(Checkbox).simulate('change');
 
         expect(updateStateSpy.calledOnceWith({type: "toggle", id: 1})).toBe(true);
     });
