@@ -30,10 +30,12 @@ State is a way to save and modify data without really adding it to database - so
 
 Let's set up your local environment:
 1. Install Node.js (https://nodejs.org/en/)
-2. Clone this repo or download the repo and open the folder in your favourite text editor (VSC, Atom, you choose...)
-3. Once you have this repo in your machine, go to terminal (VSC has built-in terminal btw) and type `npm install` -> this will install all the node modules (which has all the dependencies required)
-4. Now that's done - type `npm start` -> this will start the development server 
-5. Then go to Chrome (or your favourite browser) and go to `localhost:3000` and checkout what Dave has created and let's decode it :) 
+2. Clone this repo or download the repo
+3. Run "git checkout step-0" 
+4. Open the folder in your favourite text editor (VSC, Atom, you choose...)
+5. Once you have this repo in your machine, go to terminal (VSC has built-in terminal btw) and type `npm install` -> this will install all the node modules (which has all the dependencies required)
+6. Now that's done - type `npm start` -> this will start the development server 
+7. Then go to Chrome (or your favourite browser) and go to `localhost:3000` and checkout what Dave has created and let's decode it :) 
 
 ---
 
