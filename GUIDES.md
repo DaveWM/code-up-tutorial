@@ -19,7 +19,7 @@ JSX handles JS, CSS and HTML
 ```
 
 `className={myVar ? 'highlight' : ''}`
-Line 12 is saying: if myVar is true, apply CSS class called highlight, or else no class is applied -> checkout ternary operators
+This means: if myVar is true, apply CSS class called highlight, or else no class is applied -> checkout ternary operators
 
 # What is components, props and state?
 With react, we build by functionality rather building by page. These components make up parts of a page and they are reusable. 
