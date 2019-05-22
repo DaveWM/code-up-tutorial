@@ -5,21 +5,23 @@ React elements, Components, JSX (sounds complicated right? if you know HTML, it 
 
 [REACT QUICK START GUIDE](https://www.codementor.io/reactjs/tutorial/the-reactjs-quick-start-guide "React Concepts")
 
-#1 So what is JSX?
+# So what is JSX?
 JSX handles JS, CSS and HTML 
 
 [INTRODUCING JSX](https://reactjs.org/docs/introducing-jsx.html "JSX")
 
-
+```javascript
 <div className="container">
-   <h1 className={myVar ? 'highlight' : ''}>Hello World</h1>
+   <h1 className={myVar ? 'highlight' : ''}>Hello World</h1> 
    <p style={fontSize: 1.25rem}>{description}</p>
    <Button />
 </div>
+```
 
-Line 12 is saying: if myVar is true, apply CSS class called highlight, or else no class is applied -> checkout ternary operators
+`className={myVar ? 'highlight' : ''}`
+This means: if myVar is true, apply CSS class called highlight, or else no class is applied -> checkout ternary operators
 
-#2 What is components, props and state?
+# What is components, props and state?
 With react, we build by functionality rather building by page. These components make up parts of a page and they are reusable. 
 Props are properties and this is how React handles the data. It is an effective way to pass existing data to a React component - however, the are read-only (what this means is the component cannot change the props.)
 State is a way to save and modify data without really adding it to database - so there is a data flow (sort of...)
